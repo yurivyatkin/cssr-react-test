@@ -163,7 +163,6 @@ const Timer = connect(
   state => ({
     currentInterval: state.currentInterval
   }),
-  // TODO: Check this:
   () => {}
 )(TimerComponent);
 
