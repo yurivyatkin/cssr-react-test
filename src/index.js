@@ -35,6 +35,9 @@ const connect = (mapStateToProps, mapDispatchToProps) => Component => {
         />
       );
     }
+    componentDidMount() {
+      this.context.store.subscribe(this.handleChange);
+    }
 
     componentDidUpdate() {
       this.context.store.subscribe(this.handleChange);
