@@ -79,18 +79,21 @@ const changeInterval = value => ({
   payload: value
 });
 
+// FIXME: looks like this reducer assume that state is a number
 // reducers
 const reducer = (state, action) => {
   switch (action.type) {
     case CHANGE_INTERVAL:
       return (state += action.payload);
     default:
+      // FIXME: this should return the unchanged state:
       return {};
   }
 };
 
 // components
 
+// FIXME: this.props.currentInterval causes a warning "Functions are not valid as a React child..."
 class IntervalComponent extends React.Component {
   render() {
     return (
@@ -107,6 +110,7 @@ class IntervalComponent extends React.Component {
   }
 }
 
+// FIXME: the arguments seem to be swapped:
 const Interval = connect(
   dispatch => ({
     changeInterval: value => dispatch(changeInterval(value))
@@ -134,6 +138,8 @@ class TimerComponent extends React.Component {
     );
   }
 
+  // FIXME: Clicking causes TypeError: this is undefined
+  // FIXME: This won't work (should be bound):
   handleStart() {
     setTimeout(
       () =>
@@ -144,6 +150,8 @@ class TimerComponent extends React.Component {
     );
   }
 
+  // FIXME: Clicking causes TypeError: this is undefined
+  // FIXME: This won't work (should be bound):
   handleStop() {
     this.setState({ currentTime: 0 });
   }
@@ -153,9 +161,11 @@ const Timer = connect(
   state => ({
     currentInterval: state
   }),
+  // TODO: Check this:
   () => {}
 )(TimerComponent);
 
+// FIXME: initial state is not set:
 // init
 ReactDOM.render(
   <Provider store={createStore(reducer)}>
