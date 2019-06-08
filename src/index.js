@@ -110,13 +110,12 @@ class IntervalComponent extends React.Component {
   }
 }
 
-// FIXME: the arguments seem to be swapped:
 const Interval = connect(
-  dispatch => ({
-    changeInterval: value => dispatch(changeInterval(value))
-  }),
   state => ({
     currentInterval: state
+  }),
+  dispatch => ({
+    changeInterval: value => dispatch(changeInterval(value))
   })
 )(IntervalComponent);
 
