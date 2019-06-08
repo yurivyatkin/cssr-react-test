@@ -79,21 +79,21 @@ const changeInterval = value => ({
   payload: value
 });
 
-// FIXME: looks like this reducer assume that state is a number
 // reducers
 const reducer = (state, action) => {
   switch (action.type) {
     case CHANGE_INTERVAL:
-      return (state += action.payload);
+      return {
+        ...state,
+        currentInterval: state.currentInterval + action.payload
+      };
     default:
-      // FIXME: this should return the unchanged state:
-      return {};
+      return state;
   }
 };
 
 // components
 
-// FIXME: this.props.currentInterval causes a warning "Functions are not valid as a React child..."
 class IntervalComponent extends React.Component {
   render() {
     return (
@@ -112,7 +112,7 @@ class IntervalComponent extends React.Component {
 
 const Interval = connect(
   state => ({
-    currentInterval: state
+    currentInterval: state.currentInterval
   }),
   dispatch => ({
     changeInterval: value => dispatch(changeInterval(value))
@@ -158,7 +158,7 @@ class TimerComponent extends React.Component {
 
 const Timer = connect(
   state => ({
-    currentInterval: state
+    currentInterval: state.currentInterval
   }),
   // TODO: Check this:
   () => {}
@@ -166,7 +166,7 @@ const Timer = connect(
 
 // init
 ReactDOM.render(
-  <Provider store={createStore(reducer, 1)}>
+  <Provider store={createStore(reducer, { currentInterval: 1 })}>
     <Timer />
   </Provider>,
   document.getElementById("app")
