@@ -82,13 +82,19 @@ const changeInterval = value => ({
   payload: value
 });
 
+const boundFromBelow = (value, threshold = 0) =>
+  value < threshold ? threshold : value;
+
 // reducers
 const reducer = (state, action) => {
   switch (action.type) {
     case CHANGE_INTERVAL:
       return {
         ...state,
-        currentInterval: state.currentInterval + action.payload
+        currentInterval: boundFromBelow(
+          state.currentInterval + action.payload,
+          1
+        )
       };
     default:
       return state;
