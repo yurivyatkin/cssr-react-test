@@ -138,9 +138,7 @@ class TimerComponent extends React.Component {
     );
   }
 
-  // FIXME: Clicking causes TypeError: this is undefined
-  // FIXME: This won't work (should be bound):
-  handleStart() {
+  handleStart = () => {
     setTimeout(
       () =>
         this.setState({
@@ -150,9 +148,7 @@ class TimerComponent extends React.Component {
     );
   }
 
-  // FIXME: Clicking causes TypeError: this is undefined
-  // FIXME: This won't work (should be bound):
-  handleStop() {
+  handleStop = () => {
     this.setState({ currentTime: 0 });
   }
 }
